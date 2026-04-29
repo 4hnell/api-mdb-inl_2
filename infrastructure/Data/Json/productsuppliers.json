@@ -1,0 +1,42 @@
+[
+  {
+    "productId": 1,
+    "supplierId": 1,
+    "price": 14.95
+  },
+  {
+    "productId": 1,
+    "supplierId": 2,
+    "price": 16.49
+  },
+  {
+    "productId": 1,
+    "supplierId": 3,
+    "price": 14.5
+  },
+  {
+    "productId": 2,
+    "supplierId": 3,
+    "price": 25.49
+  },
+  {
+    "productId": 2,
+    "supplierId": 4,
+    "price": 25.99
+  },
+  {
+    "productId": 3,
+    "supplierId": 1,
+    "price": 27.5
+  },
+  {
+    "productId": 3,
+    "supplierId": 3,
+    "price": 89.49
+  },
+  {
+    "productId": 3,
+    "supplierId": 4,
+    "price": 93.5
+  }
+]

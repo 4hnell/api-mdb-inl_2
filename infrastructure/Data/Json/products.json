@@ -1,0 +1,22 @@
+[
+  {
+    "itemNumber": "AAA-2301",
+    "productName": "Vetemjöl"
+  },
+  {
+    "itemNumber": "BBB-2302",
+    "productName": "Socker"
+  },
+  {
+    "itemNumber": "CCC-2303",
+    "productName": "Smör"
+  },
+  {
+    "itemNumber": "DDD-2304",
+    "productName": "Jäst"
+  },
+  {
+    "itemNumber": "EEE-2305",
+    "productName": "Bakpulver"
+  }
+]

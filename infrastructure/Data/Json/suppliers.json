@@ -1,0 +1,41 @@
+[
+  {
+    "supplierName": "Kornhem",
+    "addressLine": "Järnvägsgatan 16",
+    "postalCode": "913 31",
+    "city": "Malmö",
+    "contact": "Sven Svensson",
+    "email": "info@kornhem.com",
+    "phone": "0459-11123"
+  },
+  {
+    "supplierName": "Degtorp",
+    "addressLine": "Första Avenyn 10",
+    "postalCode": "281 37",
+    "city": "Lund",
+    "contact": "Otto Ottosson",
+    "email": "info@degtorp.com",
+    "phone": "0232-98723"
+  },
+  {
+    "supplierName": "Spannlund",
+    "addressLine": "Måsvägen 2",
+    "postalCode": "119 23",
+    "city": "Helsingborg",
+    "contact": "Johan Johansson",
+    "email": "info@spannlund.com",
+    "phone": "0921-77666"
+  },
+  {
+    "supplierName": "Kornbacka",
+    "city": "Landskrona",
+    "contact": "Filip Filipsson",
+    "email": "info@kornbacka.com",
+    "phone": "0144-23489"
+  },
+  {
+    "supplierName": "Degdala",
+    "email": "info@degdala.com",
+    "phone": "0654-19283"
+  }
+]
