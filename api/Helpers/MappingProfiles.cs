@@ -9,6 +9,13 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        // CreateMap<_, _>();
+        CreateMap<IReadOnlyList<Product>, IReadOnlyList<GetAllProductsDto>>();
+        CreateMap<Product, GetProductDto>();
+        CreateMap<PostProductDto, Product>();
+        CreateMap<PostProductSupplierDto, Product>();
+        CreateMap<PostProductSupplierDto, ProductSupplier>();
+        CreateMap<IReadOnlyList<Supplier>, IReadOnlyList<GetAllSuppliersDto>>();
+        CreateMap<Supplier, GetSupplierDto>();
+        CreateMap<PostSupplierProductDto, ProductSupplier>();
     }
 }

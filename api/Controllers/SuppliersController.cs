@@ -50,7 +50,7 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         if (await uow.Repository<ProductSupplier>().AnyAsync(ps => ps.ProductId == model.ProductId && ps.SupplierId == model.SupplierId))
         {
-            return Resp(409, false, "Product and Supplier already linked");
+            return Resp(409, false, "Product and supplier already linked");
         }
 
         var ps = mapper.Map<PostSupplierProductDto, ProductSupplier>(model);

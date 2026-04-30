@@ -89,7 +89,7 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
         return CreatedAtResp(
             nameof(FindProductById),
             new { id = product.Id },
-            $"Created for Supplier {model.SupplierId}",
+            "Created for supplier",
             new DataResult<Product>(1, [product]),
             [mappedProduct]
         );
