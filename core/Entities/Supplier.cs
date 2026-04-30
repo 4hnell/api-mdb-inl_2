@@ -1,8 +1,7 @@
 namespace core.Entities;
 
-public class Supplier
+public class Supplier : BaseEntity
 {
-    public int Id { get; set; }
     public required string SupplierName { get; set; }
     public required string Phone { get; set; }
     public required string Email { get; set; }

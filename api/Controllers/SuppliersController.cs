@@ -1,142 +1,90 @@
-using infrastructure.Data;
 using api.DTOs.Suppliers;
 using core.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using core.Specifications;
+using core.Interfaces;
+using api.Helpers;
+using AutoMapper;
 
 namespace api.Controllers;
 
-[Route("api/suppliers")]
-[ApiController]
-public class SuppliersController(MDBContext context) : MDBBaseController
+public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseController
 {
     [HttpGet()]
-    public async Task<ActionResult> ListAllSuppliers()
+    public async Task<ActionResult> ListAllSuppliers([FromQuery] SupplierSpecificationParams args)
     {
-        var dto = await context.Suppliers
-            .Select(s => new GetAllSuppliersDto
-            {
-                Id = s.Id,
-                SupplierName = s.SupplierName,
-                Phone = s.Phone,
-                Email = s.Email,
+        var data = await CreateResult(uow.Repository<Supplier>(), new SupplierSpecification(args));
+        var mappedData = mapper.Map<IReadOnlyList<Supplier>, IReadOnlyList<GetAllSuppliersDto>>(data.Result);
 
-            })
-            .ToListAsync();
-
-        return Resp(200, true, "Suppliers retrieved", dto.Count, dto);
+        return Resp(200, true, "Suppliers retrieved", data, mappedData);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult> FindSupplier(int id)
+    public async Task<ActionResult> FindSupplierById(string id)
     {
-        var supplier = await context.Suppliers.FindAsync(id);
+        var supplier = await uow.Repository<Supplier>().FindByIdAsync(id);
 
         if (supplier is null) return Resp(404, false, "Supplier not found");
 
-        var dto = new GetSupplierDto
-        {
-            SupplierName = supplier.SupplierName,
-            Phone = supplier.Phone,
-            Email = supplier.Email,
-            AddressLine = supplier.AddressLine,
-            PostalCode = supplier.PostalCode,
-            City = supplier.City,
-            Contact = supplier.Contact
-        };
+        var mappedSupplier = mapper.Map<Supplier, GetSupplierDto>(supplier);
 
-        return Resp(200, true, "Supplier retrieved", data: dto);
+        return Resp(200, true, "Supplier found", new DataResult<Supplier>(1, [supplier]), [mappedSupplier]);
     }
 
-    [HttpGet("search/{supplierName}")]
-    public async Task<ActionResult> FindSupplier(string supplierName)
-    {
-        var supplier = await context.Suppliers
-            .Include(s => s.ProductSuppliers)
-            .ThenInclude(ps => ps.Product)
-            .SingleOrDefaultAsync(s => s.SupplierName.ToLower().Trim() == supplierName.ToLower().Trim());
-
-        if (supplier is null) return Resp(404, false, "Supplier not found");
-
-        var dto = new GetSupplierSearchDto
-        {
-            SupplierName = supplier.SupplierName,
-            Phone = supplier.Phone,
-            Email = supplier.Email,
-            Products = [.. supplier.ProductSuppliers.Select(ps => new GetProductsSupplierDto
-            {
-                ItemNumber = ps.Product.ItemNumber,
-                ProductName = ps.Product.ProductName,
-                Price = ps.Price
-            })]
-        };
-
-        return Resp(200, true, "Supplier retrieved", dto.Products.Count, dto);
-    }
-
-    [HttpPost("{supplierId}/products/{productId}")]
-    public async Task<ActionResult> PostSupplierProduct(int supplierId, int productId, PostSupplierProductDto model)
+    [HttpPost("assign-product")]
+    public async Task<ActionResult> PostSupplierProduct(PostSupplierProductDto model)
     {
         if (model is null) return Resp(400, false, "Invalid input");
 
-        if (model.Price <= 0) return Resp(400, false, "price not in range");
+        if (model.Price <= 0) return Resp(400, false, "Price not in range");
 
-        if (!await context.Suppliers.AnyAsync(s => s.Id == supplierId))
+        if (!await uow.Repository<Supplier>().AnyAsync(s => s.Id == model.SupplierId))
         {
             return Resp(404, false, "Supplier not found");
         }
 
-        if (!await context.Products.AnyAsync(p => p.Id == productId))
+        if (!await uow.Repository<Product>().AnyAsync(p => p.Id == model.ProductId))
         {
             return Resp(404, false, "Product not found");
         }
 
-        if (await context.ProductSuppliers.AnyAsync(ps => ps.ProductId == productId && ps.SupplierId == supplierId))
+        if (await uow.Repository<ProductSupplier>().AnyAsync(ps => ps.ProductId == model.ProductId && ps.SupplierId == model.SupplierId))
         {
             return Resp(409, false, "Product and Supplier already linked");
         }
 
-        var ps = new ProductSupplier
-        {
-            ProductId = productId,
-            SupplierId = supplierId,
-            Price = model.Price
-        };
+        var ps = mapper.Map<PostSupplierProductDto, ProductSupplier>(model);
 
-        context.ProductSuppliers.Add(ps);
-        await context.SaveChangesAsync();
+        uow.Repository<ProductSupplier>().Add(ps);
+        await uow.Complete();
 
-        return Resp(201, true, "Created", data: new
-        {
-            Details = $"Product {productId} linked with Supplier {supplierId}",
-            model.Price
-        });
+        return Resp(201, true, "Product added to supplier");
     }
 
-    [HttpPatch("{supplierId}/products/{productId}")]
-    public async Task<ActionResult> PatchSupplierProduct(int supplierId, int productId, PatchSupplierProductDto model)
+    [HttpPatch("update-price")]
+    public async Task<ActionResult> PatchSupplierProduct(PatchSupplierProductDto model)
     {
         if (model is null) return Resp(400, false, "Invalid input");
 
-        if (model.Price <= 0) return Resp(400, false, "price not in range");
+        if (model.Price <= 0) return Resp(400, false, "Price not in range");
 
-        if (!await context.Suppliers.AnyAsync(s => s.Id == supplierId))
+        if (!await uow.Repository<Supplier>().AnyAsync(s => s.Id == model.SupplierId))
         {
             return Resp(404, false, "Supplier not found");
         }
 
-        if (!await context.Products.AnyAsync(p => p.Id == productId))
+        if (!await uow.Repository<Product>().AnyAsync(p => p.Id == model.ProductId))
         {
             return Resp(404, false, "Product not found");
         }
 
-        var ps = await context.ProductSuppliers.FindAsync(productId, supplierId);
+        var ps = await uow.Repository<ProductSupplier>().FindAsync(new ProductSupplierSpecification(model.ProductId, model.SupplierId));
 
-        if (ps is null) return Resp(404, false, "Product and Supplier not linked");
+        if (ps is null) return Resp(404, false, "Product not sold by supplier");
 
         ps.Price = model.Price;
 
-        await context.SaveChangesAsync();
+        await uow.Complete();
 
         return NoContent();
     }
