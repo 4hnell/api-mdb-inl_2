@@ -9,7 +9,7 @@ public class ProductSupplierSpecification : BaseSpecification<ProductSupplier>
         string.IsNullOrWhiteSpace(args.SupplierId) || c.SupplierId == args.SupplierId)
     { }
 
-    public ProductSupplierSpecification(string supplierId, string productId) : base(c =>
+    public ProductSupplierSpecification(string productId, string supplierId) : base(c =>
         c.ProductId == productId && c.SupplierId == supplierId)
     { }
 }

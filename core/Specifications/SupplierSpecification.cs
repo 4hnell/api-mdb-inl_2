@@ -5,14 +5,16 @@ namespace core.Specifications;
 public class SupplierSpecification : BaseSpecification<Supplier>
 {
     public SupplierSpecification(SupplierSpecificationParams args) : base(c =>
-        string.IsNullOrWhiteSpace(args.Search) || c.SupplierName.ToLower().Contains(args.Search.ToLower()))
+        (string.IsNullOrWhiteSpace(args.Search) || c.SupplierName.ToLower().Contains(args.Search.ToLower())) &&
+        (string.IsNullOrWhiteSpace(args.SupplierName) || (c.SupplierName.ToLower().Trim() == args.SupplierName.ToLower().Trim())))
     {
-        AddInclude("ProductSuppliers.Products");
+        AddInclude("ProductSuppliers.Product");
     }
 
-    public SupplierSpecification(string supplierId) : base(c =>
-        c.Id == supplierId)
+    public SupplierSpecification(string? supplierId = null, string? supplierName = null) : base(c =>
+        (string.IsNullOrWhiteSpace(supplierId) || c.Id == supplierId) &&
+        (string.IsNullOrWhiteSpace(supplierName) || c.SupplierName.ToLower().Trim() == supplierName.ToLower().Trim()))
     {
-        AddInclude("ProductSuppliers.Products");
+        AddInclude("ProductSuppliers.Product");
     }
 }

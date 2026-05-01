@@ -8,13 +8,13 @@ public class ProductSpecification : BaseSpecification<Product>
         (string.IsNullOrWhiteSpace(args.Search) || c.ProductName.ToLower().Contains(args.Search.ToLower())) &&
         (string.IsNullOrWhiteSpace(args.ItemNumber) || (c.ItemNumber == args.ItemNumber)))
     {
-        AddInclude("ProductSuppliers.Suppliers");
+        AddInclude("ProductSuppliers.Supplier");
     }
 
     public ProductSpecification(string? productId = null, string? itemNumber = null) : base(c =>
         (string.IsNullOrWhiteSpace(productId) || c.Id == productId) &&
         (string.IsNullOrWhiteSpace(itemNumber) || c.ItemNumber.ToLower().Trim() == itemNumber.ToLower().Trim()))
     {
-        AddInclude("ProductSuppliers.Suppliers");
+        AddInclude("ProductSuppliers.Supplier");
     }
 }

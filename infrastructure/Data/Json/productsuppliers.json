@@ -1,42 +1,42 @@
 [
   {
-    "productId": 1,
-    "supplierId": 1,
+    "itemNumber": "AAA-2301",
+    "supplierName": "Kornhem",
     "price": 14.95
   },
   {
-    "productId": 1,
-    "supplierId": 2,
+    "itemNumber": "AAA-2301",
+    "supplierName": "Degtorp",
     "price": 16.49
   },
   {
-    "productId": 1,
-    "supplierId": 3,
+    "itemNumber": "AAA-2301",
+    "supplierName": "Spannlund",
     "price": 14.5
   },
   {
-    "productId": 2,
-    "supplierId": 3,
+    "itemNumber": "BBB-2302",
+    "supplierName": "Spannlund",
     "price": 25.49
   },
   {
-    "productId": 2,
-    "supplierId": 4,
+    "itemNumber": "BBB-2302",
+    "supplierName": "Kornbacka",
     "price": 25.99
   },
   {
-    "productId": 3,
-    "supplierId": 1,
-    "price": 27.5
+    "itemNumber": "CCC-2303",
+    "supplierName": "Kornhem",
+    "price": 89.99
   },
   {
-    "productId": 3,
-    "supplierId": 3,
+    "itemNumber": "CCC-2303",
+    "supplierName": "Spannlund",
     "price": 89.49
   },
   {
-    "productId": 3,
-    "supplierId": 4,
+    "itemNumber": "CCC-2303",
+    "supplierName": "Kornbacka",
     "price": 93.5
   }
 ]
