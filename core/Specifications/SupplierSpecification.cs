@@ -8,13 +8,13 @@ public class SupplierSpecification : BaseSpecification<Supplier>
         (string.IsNullOrWhiteSpace(args.Search) || c.SupplierName.ToLower().Contains(args.Search.ToLower())) &&
         (string.IsNullOrWhiteSpace(args.SupplierName) || (c.SupplierName.ToLower().Trim() == args.SupplierName.ToLower().Trim())))
     {
-        AddInclude("ProductSuppliers.Product");
+        AddInclude("IngredientSuppliers.Ingredient");
     }
 
     public SupplierSpecification(string? supplierId = null, string? supplierName = null) : base(c =>
         (string.IsNullOrWhiteSpace(supplierId) || c.Id == supplierId) &&
         (string.IsNullOrWhiteSpace(supplierName) || c.SupplierName.ToLower().Trim() == supplierName.ToLower().Trim()))
     {
-        AddInclude("ProductSuppliers.Product");
+        AddInclude("IngredientSuppliers.Ingredient");
     }
 }

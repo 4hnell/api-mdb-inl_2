@@ -31,8 +31,8 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
         return Resp(200, true, "Supplier found", new DataResult<Supplier>(1, [supplier]), [mappedSupplier]);
     }
 
-    [HttpGet("{supplierName}/product-list")]
-    public async Task<ActionResult> FindSupplierWithProducts(string supplierName)
+    [HttpGet("{supplierName}/ingredient-list")]
+    public async Task<ActionResult> FindSupplierWithIngredients(string supplierName)
     {
         var supplier = await uow.Repository<Supplier>().FindAsync(new SupplierSpecification(supplierName: supplierName));
 
@@ -40,11 +40,11 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         var mappedData = mapper.Map<GetSupplierSearchDto>(supplier);
 
-        return Resp(200, true, "Supplier and products found", new DataResult<Supplier>(1, [supplier]), [mappedData]);
+        return Resp(200, true, "Supplier and ingredients found", new DataResult<Supplier>(1, [supplier]), [mappedData]);
     }
 
-    [HttpPost("assign-product")]
-    public async Task<ActionResult> PostSupplierProduct(PostSupplierProductDto model)
+    [HttpPost("assign-ingredient")]
+    public async Task<ActionResult> PostSupplierIngredient(PostSupplierIngredientDto model)
     {
         if (model is null) return Resp(400, false, "Invalid input");
 
@@ -55,26 +55,26 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
             return Resp(404, false, "Supplier not found");
         }
 
-        if (!await uow.Repository<Product>().AnyAsync(new ProductSpecification(productId: model.ProductId)))
+        if (!await uow.Repository<Ingredient>().AnyAsync(new IngredientSpecification(ingredientId: model.IngredientId)))
         {
-            return Resp(404, false, "Product not found");
+            return Resp(404, false, "Ingredient not found");
         }
 
-        if (await uow.Repository<ProductSupplier>().AnyAsync(new ProductSupplierSpecification(model.ProductId, model.SupplierId)))
+        if (await uow.Repository<IngredientSupplier>().AnyAsync(new IngredientSupplierSpecification(model.IngredientId, model.SupplierId)))
         {
-            return Resp(409, false, "Product and supplier already linked");
+            return Resp(409, false, "Ingredient and supplier already linked");
         }
 
-        var ps = mapper.Map<ProductSupplier>(model);
+        var ps = mapper.Map<IngredientSupplier>(model);
 
-        uow.Repository<ProductSupplier>().Add(ps);
+        uow.Repository<IngredientSupplier>().Add(ps);
         await uow.Complete();
 
-        return Resp(201, true, "Product added to supplier");
+        return Resp(201, true, "Ingredient added to supplier");
     }
 
     [HttpPatch("update-price")]
-    public async Task<ActionResult> PatchSupplierProduct(PatchSupplierProductDto model)
+    public async Task<ActionResult> PatchSupplierIngredient(PatchSupplierIngredientDto model)
     {
         if (model is null) return Resp(400, false, "Invalid input");
 
@@ -85,14 +85,14 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
             return Resp(404, false, "Supplier not found");
         }
 
-        if (!await uow.Repository<Product>().AnyAsync(new ProductSpecification(productId: model.ProductId)))
+        if (!await uow.Repository<Ingredient>().AnyAsync(new IngredientSpecification(ingredientId: model.IngredientId)))
         {
-            return Resp(404, false, "Product not found");
+            return Resp(404, false, "Ingredient not found");
         }
 
-        var ps = await uow.Repository<ProductSupplier>().FindAsync(new ProductSupplierSpecification(model.ProductId, model.SupplierId));
+        var ps = await uow.Repository<IngredientSupplier>().FindAsync(new IngredientSupplierSpecification(model.IngredientId, model.SupplierId));
 
-        if (ps is null) return Resp(404, false, "Product not sold by supplier");
+        if (ps is null) return Resp(404, false, "Ingredient not sold by supplier");
 
         ps.Price = model.Price;
 

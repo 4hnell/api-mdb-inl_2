@@ -1,6 +1,6 @@
-namespace api.DTOs.Products;
+namespace api.DTOs.Ingredients;
 
-public class GetProductSuppliersDto
+public class GetIngredientSuppliersDto
 {
     public required string SupplierName { get; set; }
     public decimal Price { get; set; }

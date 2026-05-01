@@ -38,8 +38,8 @@ try
     var context = services.GetRequiredService<MDBContext>();
     await context.Database.MigrateAsync();
     await SeedDatabase.SeedSuppliers(context);
-    await SeedDatabase.SeedProducts(context);
-    await SeedDatabase.SeedProductSuppliers(context);
+    await SeedDatabase.SeedIngredients(context);
+    await SeedDatabase.SeedIngredientSuppliers(context);
 }
 catch (Exception ex)
 {

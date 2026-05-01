@@ -1,6 +1,6 @@
 namespace infrastructure.Data.SeedDTOs;
 
-public class ProductSupplierSeedDto
+public class IngredientSupplierSeedDto
 {
     public required string ItemNumber { get; set; }
     public required string SupplierName { get; set; }

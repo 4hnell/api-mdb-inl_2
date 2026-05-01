@@ -5,22 +5,22 @@
 namespace infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SqliteCreate : Migration
+    public partial class DBInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Ingredients",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     ItemNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    ProductName = table.Column<string>(type: "TEXT", nullable: false)
+                    IngredientName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,25 +42,25 @@ namespace infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductSuppliers",
+                name: "IngredientSuppliers",
                 columns: table => new
                 {
-                    ProductId = table.Column<string>(type: "TEXT", nullable: false),
+                    IngredientId = table.Column<string>(type: "TEXT", nullable: false),
                     SupplierId = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Id = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductSuppliers", x => new { x.ProductId, x.SupplierId });
+                    table.PrimaryKey("PK_IngredientSuppliers", x => new { x.IngredientId, x.SupplierId });
                     table.ForeignKey(
-                        name: "FK_ProductSuppliers_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
+                        name: "FK_IngredientSuppliers_Ingredients_IngredientId",
+                        column: x => x.IngredientId,
+                        principalTable: "Ingredients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductSuppliers_Suppliers_SupplierId",
+                        name: "FK_IngredientSuppliers_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
@@ -68,8 +68,8 @@ namespace infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductSuppliers_SupplierId",
-                table: "ProductSuppliers",
+                name: "IX_IngredientSuppliers_SupplierId",
+                table: "IngredientSuppliers",
                 column: "SupplierId");
         }
 
@@ -77,10 +77,10 @@ namespace infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductSuppliers");
+                name: "IngredientSuppliers");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Ingredients");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

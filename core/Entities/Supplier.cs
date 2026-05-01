@@ -9,5 +9,5 @@ public class Supplier : BaseEntity
     public string? PostalCode { get; set; }
     public string? City { get; set; }
     public string? Contact { get; set; }
-    public List<ProductSupplier> ProductSuppliers { get; set; } = [];
+    public List<IngredientSupplier> IngredientSuppliers { get; set; } = [];
 }

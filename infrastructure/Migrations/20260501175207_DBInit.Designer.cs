@@ -10,8 +10,8 @@ using infrastructure.Data;
 namespace infrastructure.Migrations
 {
     [DbContext(typeof(MDBContext))]
-    [Migration("20260501131652_SqliteCreate")]
-    partial class SqliteCreate
+    [Migration("20260501175207_DBInit")]
+    partial class DBInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,27 +19,27 @@ namespace infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
 
-            modelBuilder.Entity("core.Entities.Product", b =>
+            modelBuilder.Entity("core.Entities.Ingredient", b =>
                 {
                     b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IngredientName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ItemNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("core.Entities.ProductSupplier", b =>
+            modelBuilder.Entity("core.Entities.IngredientSupplier", b =>
                 {
-                    b.Property<string>("ProductId")
+                    b.Property<string>("IngredientId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SupplierId")
@@ -51,11 +51,11 @@ namespace infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ProductId", "SupplierId");
+                    b.HasKey("IngredientId", "SupplierId");
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("ProductSuppliers");
+                    b.ToTable("IngredientSuppliers");
                 });
 
             modelBuilder.Entity("core.Entities.Supplier", b =>
@@ -92,33 +92,33 @@ namespace infrastructure.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("core.Entities.ProductSupplier", b =>
+            modelBuilder.Entity("core.Entities.IngredientSupplier", b =>
                 {
-                    b.HasOne("core.Entities.Product", "Product")
-                        .WithMany("ProductSuppliers")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("core.Entities.Ingredient", "Ingredient")
+                        .WithMany("IngredientSuppliers")
+                        .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("core.Entities.Supplier", "Supplier")
-                        .WithMany("ProductSuppliers")
+                        .WithMany("IngredientSuppliers")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Ingredient");
 
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("core.Entities.Product", b =>
+            modelBuilder.Entity("core.Entities.Ingredient", b =>
                 {
-                    b.Navigation("ProductSuppliers");
+                    b.Navigation("IngredientSuppliers");
                 });
 
             modelBuilder.Entity("core.Entities.Supplier", b =>
                 {
-                    b.Navigation("ProductSuppliers");
+                    b.Navigation("IngredientSuppliers");
                 });
 #pragma warning restore 612, 618
         }

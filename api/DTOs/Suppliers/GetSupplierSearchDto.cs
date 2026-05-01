@@ -2,5 +2,5 @@ namespace api.DTOs.Suppliers;
 
 public class GetSupplierSearchDto : BaseSupplierDto
 {
-    public List<GetProductsSupplierDto>? Products { get; set; }
+    public List<GetIngredientsSupplierDto>? Ingredients { get; set; }
 }

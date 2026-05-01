@@ -1,22 +1,22 @@
 [
   {
     "itemNumber": "AAA-2301",
-    "productName": "Vetemjöl"
+    "ingredientName": "Vetemjöl"
   },
   {
     "itemNumber": "BBB-2302",
-    "productName": "Socker"
+    "ingredientName": "Socker"
   },
   {
     "itemNumber": "CCC-2303",
-    "productName": "Smör"
+    "ingredientName": "Smör"
   },
   {
     "itemNumber": "DDD-2304",
-    "productName": "Jäst"
+    "ingredientName": "Jäst"
   },
   {
     "itemNumber": "EEE-2305",
-    "productName": "Bakpulver"
+    "ingredientName": "Bakpulver"
   }
 ]

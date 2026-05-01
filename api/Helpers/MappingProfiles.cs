@@ -1,4 +1,4 @@
-﻿using api.DTOs.Products;
+﻿using api.DTOs.Ingredients;
 using api.DTOs.Suppliers;
 using AutoMapper;
 using core.Entities;
@@ -9,24 +9,24 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Product, GetAllProductsDto>();
-        CreateMap<Product, GetProductDto>();
-        CreateMap<PostProductDto, Product>();
-        CreateMap<PostProductSupplierDto, Product>();
-        CreateMap<PostProductSupplierDto, ProductSupplier>();
+        CreateMap<Ingredient, GetAllIngredientsDto>();
+        CreateMap<Ingredient, GetIngredientDto>();
+        CreateMap<PostIngredientDto, Ingredient>();
+        CreateMap<PostIngredientSupplierDto, Ingredient>();
+        CreateMap<PostIngredientSupplierDto, IngredientSupplier>();
         CreateMap<Supplier, GetAllSuppliersDto>();
         CreateMap<Supplier, GetSupplierDto>();
-        CreateMap<PostSupplierProductDto, ProductSupplier>();
-        CreateMap<Product, GetProductDto>()
-            .ForMember(d => d.Suppliers, o => o.MapFrom(s => s.ProductSuppliers));
-        CreateMap<ProductSupplier, GetProductSuppliersDto>()
+        CreateMap<PostSupplierIngredientDto, IngredientSupplier>();
+        CreateMap<Ingredient, GetIngredientDto>()
+            .ForMember(d => d.Suppliers, o => o.MapFrom(s => s.IngredientSuppliers));
+        CreateMap<IngredientSupplier, GetIngredientSuppliersDto>()
             .ForMember(d => d.SupplierName, o => o.MapFrom(s => s.Supplier.SupplierName))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Price));
         CreateMap<Supplier, GetSupplierSearchDto>()
-            .ForMember(d => d.Products, o => o.MapFrom(s => s.ProductSuppliers));
-        CreateMap<ProductSupplier, GetProductsSupplierDto>()
-            .ForMember(d => d.ItemNumber, o => o.MapFrom(s => s.Product.ItemNumber))
-            .ForMember(d => d.ProductName, o => o.MapFrom(s => s.Product.ProductName))
+            .ForMember(d => d.Ingredients, o => o.MapFrom(s => s.IngredientSuppliers));
+        CreateMap<IngredientSupplier, GetIngredientsSupplierDto>()
+            .ForMember(d => d.ItemNumber, o => o.MapFrom(s => s.Ingredient.ItemNumber))
+            .ForMember(d => d.IngredientName, o => o.MapFrom(s => s.Ingredient.IngredientName))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Price));
     }
 }

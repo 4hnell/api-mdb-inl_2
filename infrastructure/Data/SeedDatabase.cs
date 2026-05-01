@@ -26,53 +26,53 @@ public class SeedDatabase()
         }
     }
 
-    public static async Task SeedProducts(MDBContext context)
+    public static async Task SeedIngredients(MDBContext context)
     {
-        if (context.Products.Any()) return;
+        if (context.Ingredients.Any()) return;
 
-        var productsFromJson = File.ReadAllText("../infrastructure/Data/Json/products.json");
-        var products = JsonSerializer.Deserialize<List<Product>>(productsFromJson, options);
+        var ingredientsFromJson = File.ReadAllText("../infrastructure/Data/Json/ingredients.json");
+        var ingredients = JsonSerializer.Deserialize<List<Ingredient>>(ingredientsFromJson, options);
 
-        if (products is not null && products.Count > 0)
+        if (ingredients is not null && ingredients.Count > 0)
         {
-            await context.Products.AddRangeAsync(products);
+            await context.Ingredients.AddRangeAsync(ingredients);
             await context.SaveChangesAsync();
         }
     }
 
-    public static async Task SeedProductSuppliers(MDBContext context)
+    public static async Task SeedIngredientSuppliers(MDBContext context)
     {
-        if (context.ProductSuppliers.Any()) return;
+        if (context.IngredientSuppliers.Any()) return;
 
-        var productSuppliersFromJson = File.ReadAllText("../infrastructure/Data/Json/productsuppliers.json");
-        var psDtos = JsonSerializer.Deserialize<List<ProductSupplierSeedDto>>(productSuppliersFromJson, options);
+        var ingredientSuppliersFromJson = File.ReadAllText("../infrastructure/Data/Json/ingredientsuppliers.json");
+        var psDtos = JsonSerializer.Deserialize<List<IngredientSupplierSeedDto>>(ingredientSuppliersFromJson, options);
 
         if (psDtos is not null)
         {
-            var products = await context.Products.ToListAsync();
+            var ingredients = await context.Ingredients.ToListAsync();
             var suppliers = await context.Suppliers.ToListAsync();
 
-            var productSuppliers = new List<ProductSupplier>();
+            var ingredientSuppliers = new List<IngredientSupplier>();
 
             foreach (var psDto in psDtos)
             {
-                var product = products.FirstOrDefault(p => p.ItemNumber == psDto.ItemNumber);
+                var ingredient = ingredients.FirstOrDefault(p => p.ItemNumber == psDto.ItemNumber);
                 var supplier = suppliers.FirstOrDefault(s => s.SupplierName == psDto.SupplierName);
 
-                if (product is not null && supplier is not null)
+                if (ingredient is not null && supplier is not null)
                 {
-                    productSuppliers.Add(new ProductSupplier
+                    ingredientSuppliers.Add(new IngredientSupplier
                     {
-                        ProductId = product.Id,
+                        IngredientId = ingredient.Id,
                         SupplierId = supplier.Id,
                         Price = psDto.Price
                     });
                 }
             }
 
-            if (productSuppliers is not null && productSuppliers.Count > 0)
+            if (ingredientSuppliers is not null && ingredientSuppliers.Count > 0)
             {
-                await context.ProductSuppliers.AddRangeAsync(productSuppliers);
+                await context.IngredientSuppliers.AddRangeAsync(ingredientSuppliers);
                 await context.SaveChangesAsync();
             }
         }

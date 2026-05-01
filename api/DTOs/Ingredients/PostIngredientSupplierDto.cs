@@ -1,6 +1,6 @@
-namespace api.DTOs.Products;
+namespace api.DTOs.Ingredients;
 
-public class PostProductSupplierDto : PostProductDto
+public class PostIngredientSupplierDto : PostIngredientDto
 {
     public required string SupplierId { get; set; }
     public decimal Price { get; set; }
