@@ -14,7 +14,7 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
     public async Task<ActionResult> ListAllProducts([FromQuery] ProductSpecificationParams args)
     {
         var data = await CreateResult(uow.Repository<Product>(), new ProductSpecification(args));
-        var mappedData = mapper.Map<IReadOnlyList<Product>, IReadOnlyList<GetAllProductsDto>>(data.Result);
+        var mappedData = mapper.Map<IReadOnlyList<GetAllProductsDto>>(data.Result);
 
         return Resp(200, true, "Products retrieved", data, mappedData);
     }
@@ -26,9 +26,21 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
 
         if (product is null) return Resp(404, false, "Product not found");
 
-        var mappedProduct = mapper.Map<Product, GetProductDto>(product);
+        var mappedProduct = mapper.Map<GetProductDto>(product);
 
         return Resp(200, true, "Product found", new DataResult<Product>(1, [product]), [mappedProduct]);
+    }
+
+    [HttpGet("{itemNumber}/supplier-list")]
+    public async Task<ActionResult> FindProductWithSuppliers(string itemNumber)
+    {
+        var product = await uow.Repository<Product>().FindAsync(new ProductSpecification(itemNumber: itemNumber));
+
+        if (product is null) return Resp(404, false, "Product not found");
+
+        var mappedData = mapper.Map<GetProductDto>(product);
+
+        return Resp(200, true, "Product and suppliers found", new DataResult<Product>(1, [product]), [mappedData]);
     }
 
     [HttpPost()]
@@ -41,12 +53,12 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
             return Resp(409, false, "Item number in use");
         }
 
-        var product = mapper.Map<PostProductDto, Product>(model);
+        var product = mapper.Map<Product>(model);
 
         uow.Repository<Product>().Add(product);
         await uow.Complete();
 
-        var mappedProduct = mapper.Map<Product, GetProductDto>(product);
+        var mappedProduct = mapper.Map<GetProductDto>(product);
 
         return CreatedAtResp(
             nameof(FindProductById),
@@ -74,17 +86,17 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
             return Resp(409, false, "Item number in use");
         }
 
-        var product = mapper.Map<PostProductSupplierDto, Product>(model);
+        var product = mapper.Map<Product>(model);
 
         uow.Repository<Product>().Add(product);
-        await uow.Complete();
 
-        var ps = mapper.Map<PostProductSupplierDto, ProductSupplier>(model);
+        var ps = mapper.Map<ProductSupplier>(model);
+        ps.ProductId = product.Id;
 
         uow.Repository<ProductSupplier>().Add(ps);
         await uow.Complete();
 
-        var mappedProduct = mapper.Map<Product, GetProductDto>(product);
+        var mappedProduct = mapper.Map<GetProductDto>(product);
 
         return CreatedAtResp(
             nameof(FindProductById),

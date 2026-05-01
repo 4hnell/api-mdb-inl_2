@@ -14,7 +14,7 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
     public async Task<ActionResult> ListAllSuppliers([FromQuery] SupplierSpecificationParams args)
     {
         var data = await CreateResult(uow.Repository<Supplier>(), new SupplierSpecification(args));
-        var mappedData = mapper.Map<IReadOnlyList<Supplier>, IReadOnlyList<GetAllSuppliersDto>>(data.Result);
+        var mappedData = mapper.Map<IReadOnlyList<GetAllSuppliersDto>>(data.Result);
 
         return Resp(200, true, "Suppliers retrieved", data, mappedData);
     }
@@ -26,9 +26,21 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         if (supplier is null) return Resp(404, false, "Supplier not found");
 
-        var mappedSupplier = mapper.Map<Supplier, GetSupplierDto>(supplier);
+        var mappedSupplier = mapper.Map<GetSupplierDto>(supplier);
 
         return Resp(200, true, "Supplier found", new DataResult<Supplier>(1, [supplier]), [mappedSupplier]);
+    }
+
+    [HttpGet("{supplierName}/product-list")]
+    public async Task<ActionResult> FindSupplierWithProducts(string supplierName)
+    {
+        var supplier = await uow.Repository<Supplier>().FindAsync(new SupplierSpecification(supplierName: supplierName));
+
+        if (supplier is null) return Resp(404, false, "Supplier not found");
+
+        var mappedData = mapper.Map<GetSupplierSearchDto>(supplier);
+
+        return Resp(200, true, "Supplier and products found", new DataResult<Supplier>(1, [supplier]), [mappedData]);
     }
 
     [HttpPost("assign-product")]
@@ -53,7 +65,7 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
             return Resp(409, false, "Product and supplier already linked");
         }
 
-        var ps = mapper.Map<PostSupplierProductDto, ProductSupplier>(model);
+        var ps = mapper.Map<ProductSupplier>(model);
 
         uow.Repository<ProductSupplier>().Add(ps);
         await uow.Complete();
