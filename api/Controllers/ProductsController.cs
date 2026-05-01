@@ -36,7 +36,7 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
     {
         if (model is null) return Resp(400, false, "Invalid input");
 
-        if (await uow.Repository<Product>().AnyAsync(p => p.ItemNumber.ToLower().Trim() == model.ItemNumber.ToLower().Trim()))
+        if (await uow.Repository<Product>().AnyAsync(new ProductSpecification(itemNumber: model.ItemNumber)))
         {
             return Resp(409, false, "Item number in use");
         }
@@ -64,12 +64,12 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
 
         if (model.Price <= 0) return Resp(400, false, "Price not in range");
 
-        if (!await uow.Repository<Supplier>().AnyAsync(s => s.Id == model.SupplierId))
+        if (!await uow.Repository<Supplier>().AnyAsync(new SupplierSpecification(supplierId: model.SupplierId)))
         {
             return Resp(404, false, "Supplier not found");
         }
 
-        if (await uow.Repository<Product>().AnyAsync(p => p.ItemNumber.ToLower().Trim() == model.ItemNumber.ToLower().Trim()))
+        if (await uow.Repository<Product>().AnyAsync(new ProductSpecification(itemNumber: model.ItemNumber)))
         {
             return Resp(409, false, "Item number in use");
         }

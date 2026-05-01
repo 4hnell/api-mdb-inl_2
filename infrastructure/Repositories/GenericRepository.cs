@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using core.Entities;
+﻿using core.Entities;
 using core.Interfaces;
 using infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -45,13 +44,11 @@ public class GenericRepository<T>(MDBContext context) : IGenericRepository<T> wh
 
     public async Task<int> CountAsync(ISpecification<T> spec)
     {
-        var query = context.Set<T>().AsQueryable();
-        query = spec.ApplyPredicate(query);
-        return await query.CountAsync();
+        return await SpecificationEvaluator<T>.CreateQuery(context.Set<T>().AsQueryable(), spec).CountAsync();
     }
 
-    public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+    public async Task<bool> AnyAsync(ISpecification<T> spec)
     {
-        return await context.Set<T>().AnyAsync(predicate);
+        return await SpecificationEvaluator<T>.CreateQuery(context.Set<T>().AsQueryable(), spec).AnyAsync();
     }
 }

@@ -38,17 +38,17 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         if (model.Price <= 0) return Resp(400, false, "Price not in range");
 
-        if (!await uow.Repository<Supplier>().AnyAsync(s => s.Id == model.SupplierId))
+        if (!await uow.Repository<Supplier>().AnyAsync(new SupplierSpecification(supplierId: model.SupplierId)))
         {
             return Resp(404, false, "Supplier not found");
         }
 
-        if (!await uow.Repository<Product>().AnyAsync(p => p.Id == model.ProductId))
+        if (!await uow.Repository<Product>().AnyAsync(new ProductSpecification(productId: model.ProductId)))
         {
             return Resp(404, false, "Product not found");
         }
 
-        if (await uow.Repository<ProductSupplier>().AnyAsync(ps => ps.ProductId == model.ProductId && ps.SupplierId == model.SupplierId))
+        if (await uow.Repository<ProductSupplier>().AnyAsync(new ProductSupplierSpecification(model.ProductId, model.SupplierId)))
         {
             return Resp(409, false, "Product and supplier already linked");
         }
@@ -68,12 +68,12 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         if (model.Price <= 0) return Resp(400, false, "Price not in range");
 
-        if (!await uow.Repository<Supplier>().AnyAsync(s => s.Id == model.SupplierId))
+        if (!await uow.Repository<Supplier>().AnyAsync(new SupplierSpecification(supplierId: model.SupplierId)))
         {
             return Resp(404, false, "Supplier not found");
         }
 
-        if (!await uow.Repository<Product>().AnyAsync(p => p.Id == model.ProductId))
+        if (!await uow.Repository<Product>().AnyAsync(new ProductSpecification(productId: model.ProductId)))
         {
             return Resp(404, false, "Product not found");
         }

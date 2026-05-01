@@ -11,5 +11,5 @@ public interface IGenericRepository<T> where T : BaseEntity
     void Add(T entity);
     void Update(T entity);
     Task<int> CountAsync(ISpecification<T> spec);
-    Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
+    Task<bool> AnyAsync(ISpecification<T> spec);
 }
