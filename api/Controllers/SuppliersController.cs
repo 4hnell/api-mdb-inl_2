@@ -13,10 +13,10 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
     [HttpGet()]
     public async Task<ActionResult> ListAllSuppliers([FromQuery] SupplierSpecificationParams args)
     {
-        var data = await CreateResult(uow.Repository<Supplier>(), new SupplierSpecification(args));
-        var mappedData = mapper.Map<IReadOnlyList<GetAllSuppliersDto>>(data.Result);
+        var suppliers = await CreateResult(uow.Repository<Supplier>(), new SupplierSpecification(args));
+        var mappedSuppliers = mapper.Map<IReadOnlyList<GetAllSuppliersDto>>(suppliers.Result);
 
-        return Resp(200, true, "Suppliers retrieved", data, mappedData);
+        return Resp(200, true, "Suppliers retrieved", suppliers, mappedSuppliers);
     }
 
     [HttpGet("{id}")]
@@ -38,9 +38,9 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         if (supplier is null) return Resp(404, false, "Supplier not found");
 
-        var mappedData = mapper.Map<GetSupplierSearchDto>(supplier);
+        var mappedSupplier = mapper.Map<GetSupplierSearchDto>(supplier);
 
-        return Resp(200, true, "Supplier and ingredients found", new DataResult<Supplier>(1, [supplier]), [mappedData]);
+        return Resp(200, true, "Supplier and ingredients found", new DataResult<Supplier>(1, [supplier]), [mappedSupplier]);
     }
 
     [HttpPost("assign-ingredient")]

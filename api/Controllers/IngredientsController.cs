@@ -13,10 +13,10 @@ public class IngredientsController(IUnitOfWork uow, IMapper mapper) : MDBBaseCon
     [HttpGet()]
     public async Task<ActionResult> ListAllIngredients([FromQuery] IngredientSpecificationParams args)
     {
-        var data = await CreateResult(uow.Repository<Ingredient>(), new IngredientSpecification(args));
-        var mappedData = mapper.Map<IReadOnlyList<GetAllIngredientsDto>>(data.Result);
+        var ingredients = await CreateResult(uow.Repository<Ingredient>(), new IngredientSpecification(args));
+        var mappedIngredients = mapper.Map<IReadOnlyList<GetAllIngredientsDto>>(ingredients.Result);
 
-        return Resp(200, true, "Ingredients retrieved", data, mappedData);
+        return Resp(200, true, "Ingredients retrieved", ingredients, mappedIngredients);
     }
 
     [HttpGet("{id}")]
@@ -39,9 +39,9 @@ public class IngredientsController(IUnitOfWork uow, IMapper mapper) : MDBBaseCon
 
         if (ingredient is null) return Resp(404, false, "Ingredient not found");
 
-        var mappedData = mapper.Map<GetIngredientDto>(ingredient);
+        var mappedIngredient = mapper.Map<GetIngredientDto>(ingredient);
 
-        return Resp(200, true, "Ingredient and suppliers found", new DataResult<Ingredient>(1, [ingredient]), [mappedData]);
+        return Resp(200, true, "Ingredient and suppliers found", new DataResult<Ingredient>(1, [ingredient]), [mappedIngredient]);
     }
 
     [HttpPost()]

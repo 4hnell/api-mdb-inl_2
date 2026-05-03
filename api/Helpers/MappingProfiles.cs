@@ -1,4 +1,6 @@
-﻿using api.DTOs.Ingredients;
+﻿using api.DTOs.Customers;
+using api.DTOs.Ingredients;
+using api.DTOs.Products;
 using api.DTOs.Suppliers;
 using AutoMapper;
 using core.Entities;
@@ -28,5 +30,12 @@ public class MappingProfiles : Profile
             .ForMember(d => d.ItemNumber, o => o.MapFrom(s => s.Ingredient.ItemNumber))
             .ForMember(d => d.IngredientName, o => o.MapFrom(s => s.Ingredient.IngredientName))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Price));
+        CreateMap<Customer, GetAllCustomersDto>();
+        CreateMap<Customer, GetCustomerDto>();
+        CreateMap<Address, GetCustomerAddressDto>().ReverseMap();
+        CreateMap<PostCustomerDto, Customer>();
+        CreateMap<Product, GetAllProductsDto>();
+        CreateMap<Product, GetProductDto>();
+        CreateMap<PostProductDto, Product>();
     }
 }
