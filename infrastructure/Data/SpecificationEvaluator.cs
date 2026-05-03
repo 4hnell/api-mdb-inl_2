@@ -13,6 +13,11 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.Where(spec.Predicate);
         }
 
+        if (spec.OrderByDescending is not null)
+        {
+            query = query.OrderByDescending(spec.OrderByDescending);
+        }
+
         query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
 
         return query;

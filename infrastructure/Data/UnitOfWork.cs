@@ -28,7 +28,7 @@ public class UnitOfWork(MDBContext context) : IUnitOfWork
             var repoType = typeof(GenericRepository<>).MakeGenericType(typeof(TEntity));
 
             return Activator.CreateInstance(repoType, context)
-                ?? throw new InvalidOperationException($"Kunde inte skapa en instans för repository {t}");
+                ?? throw new InvalidOperationException($"Kunde inte skapa en instans för {t}");
         });
     }
 }

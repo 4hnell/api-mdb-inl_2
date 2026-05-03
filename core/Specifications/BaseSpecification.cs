@@ -10,9 +10,16 @@ public class BaseSpecification<T>(Expression<Func<T, bool>>? predicate) : ISpeci
     public Expression<Func<T, bool>>? Predicate => predicate;
     public List<string> Includes { get; } = [];
 
+    public Expression<Func<T, object>>? OrderByDescending { get; private set; }
+
     protected void AddInclude(string includeString)
     {
         Includes.Add(includeString);
+    }
+
+    protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescendingExpression)
+    {
+        OrderByDescending = orderByDescendingExpression;
     }
 
     public IQueryable<T> ApplyPredicate(IQueryable<T> query)

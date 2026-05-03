@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using infrastructure.Data;
 
@@ -10,9 +11,11 @@ using infrastructure.Data;
 namespace infrastructure.Migrations
 {
     [DbContext(typeof(MDBContext))]
-    partial class MDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260503161857_MoreOrderStuff")]
+    partial class MoreOrderStuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
@@ -145,14 +148,13 @@ namespace infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("LineSum")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("OrderId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Quantity")
@@ -278,6 +280,30 @@ namespace infrastructure.Migrations
                     b.HasOne("core.Entities.Orders.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
+
+                    b.OwnsOne("core.Entities.Orders.ProductOrdered", "ProductOrdered", b1 =>
+                        {
+                            b1.Property<string>("OrderItemId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("ProductId")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("ProductName")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("OrderItemId");
+
+                            b1.ToTable("OrderItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderItemId");
+                        });
+
+                    b.Navigation("ProductOrdered")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("core.Entities.Ingredient", b =>

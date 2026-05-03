@@ -38,7 +38,7 @@ public class SuppliersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
 
         if (supplier is null) return Resp(404, false, "Supplier not found");
 
-        var mappedSupplier = mapper.Map<GetSupplierSearchDto>(supplier);
+        var mappedSupplier = mapper.Map<GetSupplierSellingDto>(supplier);
 
         return Resp(200, true, "Supplier and ingredients found", new DataResult<Supplier>(1, [supplier]), [mappedSupplier]);
     }

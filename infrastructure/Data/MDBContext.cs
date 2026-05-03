@@ -23,8 +23,7 @@ public class MDBContext(DbContextOptions options) : DbContext(options)
             c => c.ToUniversalTime(),
             c => DateTime.SpecifyKind(c, DateTimeKind.Utc)
         );
-
-        modelBuilder.Entity<OrderItem>().OwnsOne(c => c.ProductOrdered, i => i.WithOwner());
+        modelBuilder.Entity<Order>().Property(o => o.OrderNumber).ValueGeneratedOnAdd();
 
         base.OnModelCreating(modelBuilder);
     }
