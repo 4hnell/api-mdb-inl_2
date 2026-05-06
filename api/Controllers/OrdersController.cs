@@ -29,7 +29,7 @@ public class OrdersController(IUnitOfWork uow, IMapper mapper) : MDBBaseControll
 
         var mappedOrder = mapper.Map<GetOrderDto>(order);
 
-        return Resp(200, true, "Order found", new DataResult<Order>(1, [order]), [mappedOrder]);
+        return Resp(200, true, "Order with customer information found", new DataResult<Order>(1, [order]), [mappedOrder]);
     }
 
     [HttpGet("orderNumber/{orderNumber}")]
@@ -41,7 +41,7 @@ public class OrdersController(IUnitOfWork uow, IMapper mapper) : MDBBaseControll
 
         var mappedOrder = mapper.Map<GetOrderDto>(order);
 
-        return Resp(200, true, "Order found", new DataResult<Order>(1, [order]), [mappedOrder]);
+        return Resp(200, true, "Order with customer information found", new DataResult<Order>(1, [order]), [mappedOrder]);
     }
 
     [HttpPost()]

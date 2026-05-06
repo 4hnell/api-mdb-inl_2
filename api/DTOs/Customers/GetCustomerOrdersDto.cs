@@ -1,6 +1,8 @@
+using api.DTOs.Orders;
+
 namespace api.DTOs.Customers;
 
-public class GetCustomerOrdersDto : BaseCustomerDto
+public class GetCustomerOrdersDto : GetAllCustomersDto
 {
-    // public List<GetOrderDto>? Orders { get; set; }
+    public IReadOnlyList<GetAllOrdersDto>? Orders { get; set; }
 }

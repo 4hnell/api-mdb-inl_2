@@ -5,6 +5,8 @@ using core.Specifications;
 using core.Interfaces;
 using api.Helpers;
 using AutoMapper;
+using core.Entities.Orders;
+using api.DTOs.Orders;
 
 namespace api.Controllers;
 
@@ -34,17 +36,16 @@ public class CustomersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
     [HttpGet("{storeName}/order-history")]
     public async Task<ActionResult> FindCustomerWithOrders(string storeName)
     {
-
-        // Lägg till logik för att hämta ut beställningshistorik
-
-
         var customer = await uow.Repository<Customer>().FindAsync(new CustomerSpecification(storeName: storeName));
 
         if (customer is null) return Resp(404, false, "Customer not found");
 
-        var mappedCustomer = mapper.Map<GetCustomerDto>(customer);
+        var orders = await uow.Repository<Order>().ListAsync(new OrderSpecification(new OrderSpecificationParams { StoreName = storeName }));
+        var mappedOrders = mapper.Map<IReadOnlyList<GetAllOrdersDto>>(orders);
+        var mappedCustomerOrders = mapper.Map<GetCustomerOrdersDto>(customer);
+        mappedCustomerOrders.Orders = mappedOrders;
 
-        return Resp(200, true, "Customer found", new DataResult<Customer>(1, [customer]), [mappedCustomer]);
+        return Resp(200, true, "Customer with order history found", new DataResult<Customer>(1, [customer]), [mappedCustomerOrders]);
     }
 
     [HttpPost()]
@@ -71,5 +72,21 @@ public class CustomersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
             new DataResult<Customer>(1, [customer]),
             [mappedCustomer]
         );
+    }
+
+    [HttpPatch("update-contact")]
+    public async Task<ActionResult> PatchCustomer(PatchCustomerDto model)
+    {
+        if (model is null) return Resp(400, false, "Invalid input");
+
+        var customer = await uow.Repository<Customer>().FindAsync(new CustomerSpecification(storeName: model.StoreName));
+
+        if (customer is null) return Resp(404, false, "Customer not found");
+
+        customer.Contact = model.Contact;
+
+        await uow.Complete();
+
+        return NoContent();
     }
 }

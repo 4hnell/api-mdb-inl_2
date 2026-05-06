@@ -5,6 +5,8 @@ using core.Specifications;
 using core.Interfaces;
 using api.Helpers;
 using AutoMapper;
+using core.Entities.Orders;
+using api.DTOs.Customers;
 
 namespace api.Controllers;
 
@@ -29,6 +31,21 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
         var mappedProduct = mapper.Map<GetProductDto>(product);
 
         return Resp(200, true, "Product found", new DataResult<Product>(1, [product]), [mappedProduct]);
+    }
+
+    [HttpGet("{productName}/bought-by")]
+    public async Task<ActionResult> FindProductAndBuyers(string productName)
+    {
+        var product = await uow.Repository<Product>().FindAsync(new ProductSpecification(productName: productName));
+
+        if (product is null) return Resp(404, false, "Product not found");
+
+        var buyers = await uow.Repository<Customer>().ListAsync(new CustomerSpecification(productName: productName));
+        var mappedBuyers = mapper.Map<List<GetAllCustomersDto>>(buyers);
+        var mappedProduct = mapper.Map<GetProductBuyersDto>(product);
+        mappedProduct.Buyers = mappedBuyers;
+
+        return Resp(200, true, "Product found, also listing buyers", new DataResult<Product>(1, [product]), [mappedProduct]);
     }
 
     [HttpPost()]

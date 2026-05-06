@@ -9,6 +9,7 @@ namespace api.Controllers;
 [ApiController]
 public class MDBBaseController : ControllerBase
 {
+    [NonAction]
     protected async Task<DataResult<T>> CreateResult<T>(
         IGenericRepository<T> repo,
         ISpecification<T> args

@@ -36,10 +36,12 @@ public class MappingProfiles : Profile
         CreateMap<Customer, GetAllCustomersDto>();
         CreateMap<Customer, GetCustomerDto>();
         CreateMap<Address, GetCustomerAddressDto>().ReverseMap();
+        CreateMap<Customer, GetCustomerOrdersDto>();
         CreateMap<PostCustomerDto, Customer>();
 
         CreateMap<Product, GetAllProductsDto>();
         CreateMap<Product, GetProductDto>();
+        CreateMap<Product, GetProductBuyersDto>();
         CreateMap<PostProductDto, Product>();
 
         CreateMap<Order, GetAllOrdersDto>();
