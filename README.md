@@ -5,14 +5,15 @@
 ```bash
 cat > appsettings.Development.json << EOF
 {
+  "ConnectionStrings": {
+    "sqlite": "Data Source=mdb.db",
+    "mysql": "Server=localhost;Port=3306;User Id=root;Password=password;Database=mdb_db;"
+  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",
       "Microsoft.AspNetCore": "Information"
     }
-  },
-  "ConnectionStrings": {
-    "sqlite": "Data Source=mdb.db"
   }
 }
 EOF
@@ -24,7 +25,7 @@ cat > appsettings.json << EOF
   "Logging": {
     "LogLevel": {
       "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
+      "Microsoft.AspNetCore": "Information"
     }
   },
   "AllowedHosts": "*"

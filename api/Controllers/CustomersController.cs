@@ -41,7 +41,7 @@ public class CustomersController(IUnitOfWork uow, IMapper mapper) : MDBBaseContr
         if (customer is null) return Resp(404, false, "Customer not found");
 
         var orders = await uow.Repository<Order>().ListAsync(new OrderSpecification(new OrderSpecificationParams { StoreName = storeName }));
-        var mappedOrders = mapper.Map<IReadOnlyList<GetAllOrdersDto>>(orders);
+        var mappedOrders = mapper.Map<List<GetOrdersForCustomerDto>>(orders);
         var mappedCustomerOrders = mapper.Map<GetCustomerOrdersDto>(customer);
         mappedCustomerOrders.Orders = mappedOrders;
 

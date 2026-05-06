@@ -44,6 +44,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetProductBuyersDto>();
         CreateMap<PostProductDto, Product>();
 
+        CreateMap<Order, GetOrdersForCustomerDto>();
         CreateMap<Order, GetAllOrdersDto>();
         CreateMap<Order, GetOrderDto>();
         CreateMap<OrderItem, GetOrderItemDto>();

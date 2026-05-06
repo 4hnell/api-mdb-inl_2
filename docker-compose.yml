@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:9.0
+    container_name: mdb_mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mdb_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mdb_data:/var/lib/mysql
+volumes:
+  mdb_data:
