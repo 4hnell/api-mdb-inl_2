@@ -11,15 +11,16 @@ public class OrderSpecification : BaseSpecification<Order>
         (!args.Date.HasValue || DateOnly.FromDateTime(c.OrderDate) == args.Date.Value))
     {
         AddInclude("OrderItems");
-        AddInclude("Customer");
     }
 
-    public OrderSpecification(string? orderId = null, int? orderNumber = null, bool latestOnly = false) : base(c =>
+    public OrderSpecification(string? orderId = null, int? orderNumber = null, string? productName = null, bool latestOnly = false) : base(c =>
         (string.IsNullOrWhiteSpace(orderId) || c.Id == orderId) &&
-        (!orderNumber.HasValue || c.OrderNumber == orderNumber))
+        (!orderNumber.HasValue || c.OrderNumber == orderNumber) &&
+        (string.IsNullOrWhiteSpace(productName) || c.OrderItems.Any(oi => oi.ProductName.ToLower().Trim() == productName.ToLower().Trim())))
     {
         AddInclude("OrderItems");
-        AddInclude("Customer");
+        AddInclude("Customer.DeliveryAddress");
+        AddInclude("Customer.BillingAddress");
 
         if (latestOnly)
         {

@@ -11,8 +11,8 @@ using infrastructure.Data;
 namespace infrastructure.Migrations
 {
     [DbContext(typeof(MDBContext))]
-    [Migration("20260503190919_LastFixOfMyLife")]
-    partial class LastFixOfMyLife
+    [Migration("20260506130122_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,7 +268,7 @@ namespace infrastructure.Migrations
             modelBuilder.Entity("core.Entities.Orders.Order", b =>
                 {
                     b.HasOne("core.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -281,6 +281,11 @@ namespace infrastructure.Migrations
                     b.HasOne("core.Entities.Orders.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("core.Entities.Customer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("core.Entities.Ingredient", b =>

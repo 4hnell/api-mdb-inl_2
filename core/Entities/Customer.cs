@@ -1,3 +1,5 @@
+using core.Entities.Orders;
+
 namespace core.Entities;
 
 public class Customer : BaseEntity
@@ -8,4 +10,5 @@ public class Customer : BaseEntity
     public string? Contact { get; set; }
     public Address? DeliveryAddress { get; set; }
     public Address? BillingAddress { get; set; }
+    public List<Order>? Orders { get; set; }
 }

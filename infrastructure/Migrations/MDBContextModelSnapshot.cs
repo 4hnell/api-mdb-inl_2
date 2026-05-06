@@ -265,7 +265,7 @@ namespace infrastructure.Migrations
             modelBuilder.Entity("core.Entities.Orders.Order", b =>
                 {
                     b.HasOne("core.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -278,6 +278,11 @@ namespace infrastructure.Migrations
                     b.HasOne("core.Entities.Orders.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("core.Entities.Customer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("core.Entities.Ingredient", b =>
