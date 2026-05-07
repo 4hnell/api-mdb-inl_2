@@ -5,7 +5,6 @@ using core.Specifications;
 using core.Interfaces;
 using api.Helpers;
 using AutoMapper;
-using core.Entities.Orders;
 using api.DTOs.Customers;
 
 namespace api.Controllers;

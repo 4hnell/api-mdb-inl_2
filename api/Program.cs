@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MDBContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("sqlite"));
-    // options.UseMySQL(builder.Configuration.GetConnectionString("mysql")!);
+    // options.UseSqlite(builder.Configuration.GetConnectionString("sqlite"));
+    options.UseMySQL(builder.Configuration.GetConnectionString("mysql")!);
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
