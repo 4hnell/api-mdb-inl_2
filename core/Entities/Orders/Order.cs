@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace core.Entities.Orders;
+﻿namespace core.Entities.Orders;
 
 public class Order : BaseEntity
 {

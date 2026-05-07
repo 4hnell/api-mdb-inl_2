@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MDBContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("sqlite"));
-    // options.UseMySQL(builder.Configuration.GetConnectionString("mysql"));
+    // options.UseMySQL(builder.Configuration.GetConnectionString("mysql")!);
 });
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -37,10 +37,14 @@ try
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<MDBContext>();
+
     await context.Database.MigrateAsync();
     await SeedDatabase.SeedSuppliers(context);
     await SeedDatabase.SeedIngredients(context);
     await SeedDatabase.SeedIngredientSuppliers(context);
+    await SeedDatabase.SeedCustomers(context);
+    await SeedDatabase.SeedProducts(context);
+    await SeedDatabase.SeedOrders(context);
 }
 catch (Exception ex)
 {

@@ -1,0 +1,34 @@
+[
+  {
+    "productName": "Chokladbollar",
+    "unitPrice": 39.5,
+    "weight": 400,
+    "packSize": 8,
+    "bakedOn": "2026-05-01",
+    "bestBefore": "2026-10-10"
+  },
+  {
+    "productName": "Kakor",
+    "unitPrice": 24.95,
+    "weight": 300,
+    "packSize": 30,
+    "bakedOn": "2026-05-01",
+    "bestBefore": "2027-03-15"
+  },
+  {
+    "productName": "Kanelbullar",
+    "unitPrice": 49.9,
+    "weight": 1000,
+    "packSize": 10,
+    "bakedOn": "2026-05-05",
+    "bestBefore": "2026-06-03"
+  },
+  {
+    "productName": "Skorpor",
+    "unitPrice": 35.49,
+    "weight": 750,
+    "packSize": 75,
+    "bakedOn": "2026-05-05",
+    "bestBefore": "2027-05-05"
+  }
+]

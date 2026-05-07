@@ -11,7 +11,7 @@ using infrastructure.Data;
 namespace infrastructure.Migrations
 {
     [DbContext(typeof(MDBContext))]
-    [Migration("20260506130122_InitDb")]
+    [Migration("20260507224117_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -107,7 +107,7 @@ namespace infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("IngredientId", "SupplierId");
 
@@ -152,7 +152,7 @@ namespace infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -187,7 +187,7 @@ namespace infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Weight")
                         .HasColumnType("INTEGER");
@@ -235,11 +235,13 @@ namespace infrastructure.Migrations
                 {
                     b.HasOne("core.Entities.Address", "BillingAddress")
                         .WithMany()
-                        .HasForeignKey("BillingAddressId");
+                        .HasForeignKey("BillingAddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("core.Entities.Address", "DeliveryAddress")
                         .WithMany()
-                        .HasForeignKey("DeliveryAddressId");
+                        .HasForeignKey("DeliveryAddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("BillingAddress");
 

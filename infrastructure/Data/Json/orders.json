@@ -1,0 +1,87 @@
+[
+  {
+    "orderNumber": 10001,
+    "storeName": "Nyfiket",
+    "orderDate": "2026-05-06T12:00:00",
+    "orderItems": [
+      {
+        "productName": "Chokladbollar",
+        "quantity": 20,
+        "price": 37.5
+      },
+      {
+        "productName": "Skorpor",
+        "quantity": 35,
+        "price": 29.9
+      }
+    ]
+  },
+  {
+    "orderNumber": 10002,
+    "storeName": "Burmans",
+    "orderDate": "2026-05-06T12:00:00",
+    "orderItems": [
+      {
+        "productName": "Chokladbollar",
+        "quantity": 40,
+        "price": 36.5
+      },
+      {
+        "productName": "Kanelbullar",
+        "quantity": 30,
+        "price": 45.9
+      }
+    ]
+  },
+  {
+    "orderNumber": 10003,
+    "storeName": "Coffeehouse",
+    "orderDate": "2026-05-07T12:00:00",
+    "orderItems": [
+      {
+        "productName": "Kakor",
+        "quantity": 50,
+        "price": 19.95
+      },
+      {
+        "productName": "Skorpor",
+        "quantity": 25,
+        "price": 31.5
+      }
+    ]
+  },
+  {
+    "orderNumber": 10004,
+    "storeName": "Coffeehouse",
+    "orderDate": "2026-05-07T12:00:00",
+    "orderItems": [
+      {
+        "productName": "Kanelbullar",
+        "quantity": 20,
+        "price": 47.49
+      },
+      {
+        "productName": "Kakor",
+        "quantity": 30,
+        "price": 20.5
+      }
+    ]
+  },
+  {
+    "orderNumber": 10005,
+    "storeName": "Nyfiket",
+    "orderDate": "2026-05-07T12:00:00",
+    "orderItems": [
+      {
+        "productName": "Chokladbollar",
+        "quantity": 10,
+        "price": 38.5
+      },
+      {
+        "productName": "Kakor",
+        "quantity": 15,
+        "price": 22.95
+      }
+    ]
+  }
+]

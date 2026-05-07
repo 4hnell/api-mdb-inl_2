@@ -44,7 +44,7 @@ namespace infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     ProductName = table.Column<string>(type: "TEXT", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Weight = table.Column<int>(type: "INTEGER", nullable: false),
                     PackSize = table.Column<int>(type: "INTEGER", nullable: false),
                     BestBefore = table.Column<DateOnly>(type: "TEXT", nullable: false),
@@ -92,12 +92,14 @@ namespace infrastructure.Migrations
                         name: "FK_Customers_Addresses_BillingAddressId",
                         column: x => x.BillingAddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Customers_Addresses_DeliveryAddressId",
                         column: x => x.DeliveryAddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,7 +108,7 @@ namespace infrastructure.Migrations
                 {
                     IngredientId = table.Column<string>(type: "TEXT", nullable: false),
                     SupplierId = table.Column<string>(type: "TEXT", nullable: false),
-                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Id = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -154,7 +156,7 @@ namespace infrastructure.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     ProductName = table.Column<string>(type: "TEXT", nullable: false),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
-                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OrderId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

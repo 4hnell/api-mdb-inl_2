@@ -1,0 +1,50 @@
+[
+  {
+    "storeName": "Nyfiket",
+    "phone": "010-101010",
+    "email": "info@nyfiket.com",
+    "contact": "Jan Jansson",
+    "deliveryAddress": {
+      "addressLine": "A-gatan 1",
+      "postalCode": "123 45",
+      "city": "Staden"
+    },
+    "billingAddress": {
+      "addressLine": "A-vägen 1",
+      "postalCode": "543 21",
+      "city": "Byn"
+    }
+  },
+  {
+    "storeName": "Coffeehouse",
+    "phone": "020-202020",
+    "email": "info@coffeehouse.com",
+    "contact": "Sara Svensson",
+    "deliveryAddress": {
+      "addressLine": "B-gatan 2",
+      "postalCode": "234 56",
+      "city": "Staden"
+    },
+    "billingAddress": {
+      "addressLine": "B-vägen 2",
+      "postalCode": "654 32",
+      "city": "Orten"
+    }
+  },
+  {
+    "storeName": "Burmans",
+    "phone": "030-303030",
+    "email": "info@burmans.com",
+    "contact": "Moa Matsson",
+    "deliveryAddress": {
+      "addressLine": "C-gatan 3",
+      "postalCode": "345 67",
+      "city": "Byn"
+    },
+    "billingAddress": {
+      "addressLine": "C-vägen 3",
+      "postalCode": "765 43",
+      "city": "Orten"
+    }
+  }
+]

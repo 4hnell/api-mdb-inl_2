@@ -17,13 +17,41 @@ public class MDBContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<IngredientSupplier>().HasKey(p => new { p.IngredientId, p.SupplierId });
+        modelBuilder.Entity<IngredientSupplier>().HasKey(isu => new { isu.IngredientId, isu.SupplierId });
 
-        modelBuilder.Entity<Order>().Property(c => c.OrderDate).HasConversion(
-            c => c.ToUniversalTime(),
-            c => DateTime.SpecifyKind(c, DateTimeKind.Utc)
-        );
+        modelBuilder.Entity<IngredientSupplier>()
+            .HasOne(isu => isu.Ingredient)
+            .WithMany(i => i.IngredientSuppliers)
+            .HasForeignKey(isu => isu.IngredientId);
+
+        modelBuilder.Entity<IngredientSupplier>()
+            .HasOne(isu => isu.Supplier)
+            .WithMany(s => s.IngredientSuppliers)
+            .HasForeignKey(isu => isu.SupplierId);
+
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.HasOne(c => c.DeliveryAddress)
+                  .WithMany()
+                  .HasForeignKey("DeliveryAddressId")
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(c => c.BillingAddress)
+                  .WithMany()
+                  .HasForeignKey("BillingAddressId")
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Product>().Property(p => p.UnitPrice).HasColumnType("decimal(18,2)");
+        modelBuilder.Entity<IngredientSupplier>().Property(isu => isu.Price).HasColumnType("decimal(18,2)");
+        modelBuilder.Entity<OrderItem>().Property(oi => oi.Price).HasColumnType("decimal(18,2)");
+
         modelBuilder.Entity<Order>().Property(o => o.OrderNumber).ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasConversion(
+            dt => dt.ToUniversalTime(),
+            dt => DateTime.SpecifyKind(dt, DateTimeKind.Utc)
+        );
 
         base.OnModelCreating(modelBuilder);
     }
