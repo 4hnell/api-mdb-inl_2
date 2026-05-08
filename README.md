@@ -1,9 +1,9 @@
 ## Inlämning del 2: Mormor Dagnys Bageri
 
-#### Setup:
+#### Skapa appsettings-filerna:
 
 ```bash
-cat > appsettings.Development.json << EOF
+cat > api/appsettings.Development.json << EOF
 {
   "ConnectionStrings": {
     "sqlite": "Data Source=mdb.db",
@@ -20,7 +20,7 @@ EOF
 ```
 
 ```bash
-cat > appsettings.json << EOF
+cat > api/appsettings.json << EOF
 {
   "Logging": {
     "LogLevel": {
@@ -33,7 +33,9 @@ cat > appsettings.json << EOF
 EOF
 ```
 
-#### Run:
+Min MySQL connection string var `Server=localhost;Port=3307;User Id=root;Password=password;Database=mdb_db;`.
+
+#### För att köra:
 
 ```bash
 dotnet build
@@ -44,3 +46,5 @@ cd api
 
 dotnet run
 ```
+
+Det går även att köra med Sqlite genom att endast byta connection string i Program.cs och göra om migreringen.
