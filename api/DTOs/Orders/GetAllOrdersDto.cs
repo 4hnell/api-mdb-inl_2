@@ -1,6 +1,7 @@
 namespace api.DTOs.Orders;
 
-public class GetAllOrdersDto : GetOrdersForCustomerDto
+public class GetAllOrdersDto : BaseOrderDto
 {
+    public required string Id { get; set; }
     public required string StoreName { get; set; }
 }

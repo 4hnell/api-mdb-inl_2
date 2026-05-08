@@ -13,6 +13,9 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
+        CreateMap<DateTime, DateOnly>().ConvertUsing(dt => DateOnly.FromDateTime(dt));
+        CreateMap<DateOnly, DateTime>().ConvertUsing(don => don.ToDateTime(TimeOnly.MinValue));
+
         CreateMap<Ingredient, GetAllIngredientsDto>();
         CreateMap<PostIngredientDto, Ingredient>();
         CreateMap<PostIngredientSupplierDto, Ingredient>();
@@ -33,6 +36,7 @@ public class MappingProfiles : Profile
             .ForMember(d => d.IngredientName, o => o.MapFrom(s => s.Ingredient.IngredientName))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Price));
 
+        CreateMap<Customer, GetCustomersForProductDto>();
         CreateMap<Customer, GetAllCustomersDto>();
         CreateMap<Customer, GetCustomerDto>();
         CreateMap<Address, GetCustomerAddressDto>().ReverseMap();

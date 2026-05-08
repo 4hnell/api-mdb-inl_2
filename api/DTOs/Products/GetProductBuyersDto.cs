@@ -2,7 +2,7 @@ using api.DTOs.Customers;
 
 namespace api.DTOs.Products;
 
-public class GetProductBuyersDto : GetAllProductsDto
+public class GetProductBuyersDto : BaseProductDto
 {
-    public List<GetAllCustomersDto>? Buyers { get; set; }
+    public List<GetCustomersForProductDto>? Buyers { get; set; }
 }

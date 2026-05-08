@@ -6,6 +6,6 @@ public class Product : BaseEntity
     public decimal UnitPrice { get; set; }
     public int Weight { get; set; }
     public int PackSize { get; set; }
-    public DateOnly BestBefore { get; set; }
-    public DateOnly BakedOn { get; set; }
+    public DateTime BestBefore { get; set; }
+    public DateTime BakedOn { get; set; }
 }

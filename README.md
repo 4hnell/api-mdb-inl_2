@@ -7,7 +7,7 @@ cat > appsettings.Development.json << EOF
 {
   "ConnectionStrings": {
     "sqlite": "Data Source=mdb.db",
-    "mysql": "Server=localhost;Port=3306;User Id=root;Password=password;Database=mdb_db;"
+    "mysql": "MYSQL_CONNECTION_STRING"
   },
   "Logging": {
     "LogLevel": {
@@ -33,10 +33,14 @@ cat > appsettings.json << EOF
 EOF
 ```
 
-```bash
-dotnet build
-```
+#### Run:
 
 ```bash
-dotnet ef database update
+dotnet build
+
+docker-compose up -d
+
+cd api
+
+dotnet run
 ```

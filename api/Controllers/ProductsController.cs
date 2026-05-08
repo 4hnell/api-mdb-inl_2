@@ -40,7 +40,7 @@ public class ProductsController(IUnitOfWork uow, IMapper mapper) : MDBBaseContro
         if (product is null) return Resp(404, false, "Product not found");
 
         var buyers = await uow.Repository<Customer>().ListAsync(new CustomerSpecification(productName: productName));
-        var mappedBuyers = mapper.Map<List<GetAllCustomersDto>>(buyers);
+        var mappedBuyers = mapper.Map<List<GetCustomersForProductDto>>(buyers);
         var mappedProduct = mapper.Map<GetProductBuyersDto>(product);
         mappedProduct.Buyers = mappedBuyers;
 

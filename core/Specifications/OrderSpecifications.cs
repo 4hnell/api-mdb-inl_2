@@ -8,7 +8,7 @@ public class OrderSpecification : BaseSpecification<Order>
         (string.IsNullOrWhiteSpace(args.Search) || c.StoreName.ToLower().Contains(args.Search.ToLower())) &&
         (string.IsNullOrWhiteSpace(args.StoreName) || (c.StoreName.ToLower().Trim() == args.StoreName.ToLower().Trim())) &&
         (!args.OrderNumber.HasValue || (c.OrderNumber == args.OrderNumber)) &&
-        (!args.Date.HasValue || DateOnly.FromDateTime(c.OrderDate) == args.Date.Value))
+        (!args.OrderDate.HasValue || c.OrderDate.Date == args.OrderDate.Value.Date))
     {
         AddInclude("OrderItems");
     }

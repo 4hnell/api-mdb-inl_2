@@ -46,7 +46,7 @@ public class MDBContext(DbContextOptions options) : DbContext(options)
         modelBuilder.Entity<IngredientSupplier>().Property(isu => isu.Price).HasColumnType("decimal(18,2)");
         modelBuilder.Entity<OrderItem>().Property(oi => oi.Price).HasColumnType("decimal(18,2)");
 
-        modelBuilder.Entity<Order>().Property(o => o.OrderNumber).ValueGeneratedOnAdd();
+        modelBuilder.Entity<Order>().HasIndex(o => o.OrderNumber).IsUnique();
 
         modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasConversion(
             dt => dt.ToUniversalTime(),
