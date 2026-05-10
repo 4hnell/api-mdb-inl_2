@@ -1,5 +1,7 @@
 ## Inlämning del 2: Mormor Dagnys Bageri
 
+Min postman collection här i repot innehåller alla anrop jag gjort under arbetet med inlämingen.
+
 #### Skapa appsettings-filerna:
 
 ```bash

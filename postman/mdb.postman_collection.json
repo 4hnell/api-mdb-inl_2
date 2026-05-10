@@ -1,0 +1,799 @@
+{
+  "info": {
+    "_postman_id": "1d342b66-d756-4573-b3bd-62e91821c1f4",
+    "name": "mdb-postman-collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "11026430",
+    "_collection_link": "https://go.postman.co/collection/11026430-1d342b66-d756-4573-b3bd-62e91821c1f4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Råvaror",
+      "item": [
+        {
+          "name": "Hämta alla råvaror",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sök bland råvaror (namn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients?search=vete",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "vete"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta råvara med artikelnummer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients?itemNumber=AAA-2301",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients"
+              ],
+              "query": [
+                {
+                  "key": "itemNumber",
+                  "value": "AAA-2301"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta råvara med ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients/INSERT_ID",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients",
+                "INSERT_ID"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta råvara med leverantörer (artikelnummer)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients/AAA-2301/supplier-list",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients",
+                "AAA-2301",
+                "supplier-list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lägg till råvara utan leverantör",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"itemNumber\": \"YYY-2401\",\r\n    \"ingredientName\": \"Kakao\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lägg till råvara med leverantör",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"itemNumber\": \"ZZZ-2402\",\r\n    \"ingredientName\": \"Rågmjöl\",\r\n    \"supplierId\": \"INSERT_SUPPLIER_ID\",\r\n    \"price\": 19.90\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/ingredients/with-supplier",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "ingredients",
+                "with-supplier"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Leverantörer",
+      "item": [
+        {
+          "name": "Hämta alla leverantörer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/suppliers",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "suppliers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sök bland leverantörer (namn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/suppliers?search=korn",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "suppliers"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "korn"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta leverantör med ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/suppliers/INSERT_ID",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "suppliers",
+                "INSERT_ID"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta leverantör med råvaror (namn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/suppliers/kornhem/ingredient-list",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "suppliers",
+                "kornhem",
+                "ingredient-list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lägg till koppling mellan leverantör och råvara",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ingredientId\": \"INSERT_INGREDIENT_ID\",\r\n    \"supplierId\": \"INSERT_SUPPLIER_ID\",\r\n    \"price\": 49.95\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/suppliers/assign-ingredient",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "suppliers",
+                "assign-ingredient"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Uppdatera priset för råvara hos leverantör",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ingredientId\": \"INSERT_INGREDIENT_ID\",\r\n    \"supplierId\": \"INSERT_SUPPLIER_ID\",\r\n    \"price\": 99.95\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/suppliers/update-price",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "suppliers",
+                "update-price"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Kunder",
+      "item": [
+        {
+          "name": "Hämta alla kunder",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/customers",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sök bland kunder (butiksnamn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/customers?search=fik",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "fik"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta kund med ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/customers/INSERT_ID",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "customers",
+                "INSERT_ID"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta kund med beställningshistorik (butiksnamn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/customers/nyfiket/order-history",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "customers",
+                "nyfiket",
+                "order-history"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lägg till kund",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"storeName\": \"Cityfiket\",\r\n    \"phone\": \"040-404040\",\r\n    \"email\": \"info@cityfiket.com\",\r\n    \"contact\": \"Christer Christersson\",\r\n    \"deliveryAddress\": {\r\n        \"addressLine\": \"D-gatan 4\",\r\n        \"postalCode\": \"456 78\",\r\n        \"city\": \"Storstan\"\r\n    },\r\n    \"billingAddress\": {\r\n        \"addressLine\": \"D-vägen 4\",\r\n        \"postalCode\": \"876 54\",\r\n        \"city\": \"Storstan\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/customers",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Uppdatera kontaktperson för kund",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"storeName\": \"Nyfiket\",\r\n    \"contact\": \"Ny Personsson\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/customers/update-contact",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "customers",
+                "update-contact"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Produkter",
+      "item": [
+        {
+          "name": "Hämta alla produkter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/products",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sök bland produkter (namn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/products?search=kak",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "kak"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta produkt med ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/products/INSERT_ID",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "products",
+                "INSERT_ID"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta produkt och visa köpare",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/products/chokladbollar/bought-by",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "products",
+                "chokladbollar",
+                "bought-by"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lägg till produkt",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"productName\": \"Sockerkaka\",\r\n    \"unitPrice\": 19.90,\r\n    \"weight\": 200,\r\n    \"packSize\": 2,\r\n    \"bestBefore\": \"2026-05-23\",\r\n    \"bakedOn\": \"2026-05-08\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/products",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Uppdatera priset på produkt",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"productName\": \"Chokladbollar\",\r\n    \"unitPrice\": 99.95\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/products/update-price",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "products",
+                "update-price"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Beställningar",
+      "item": [
+        {
+          "name": "Hämta alla beställningar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/orders",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sök bland beställningar (butiksnamn)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/orders?search=nyfiket",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "nyfiket"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sök bland beställningar (datum)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/orders?orderDate=2026-05-07",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "orderDate",
+                  "value": "2026-05-07"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta beställning med ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/orders/INSERT_ID",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "orders",
+                "INSERT_ID"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Hämta beställning med beställningsnummer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:5001/api/orders/orderNumber/10001",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "orders",
+                "orderNumber",
+                "10001"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lägg till beställning",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"storeName\": \"Nyfiket\",\r\n    \"orderItems\": [\r\n        {\r\n            \"productName\": \"Skorpor\",\r\n            \"quantity\": 4,\r\n            \"price\": 34.9\r\n        },\r\n        {\r\n            \"productName\": \"Kakor\",\r\n            \"quantity\": 6,\r\n            \"price\": 23.5\r\n        }\r\n\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:5001/api/orders",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "5001",
+              "path": [
+                "api",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
