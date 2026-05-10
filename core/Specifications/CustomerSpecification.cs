@@ -10,6 +10,8 @@ public class CustomerSpecification : BaseSpecification<Customer>
     {
         AddInclude("DeliveryAddress");
         AddInclude("BillingAddress");
+
+        AddOrderByAscending(c => c.StoreName);
     }
 
     public CustomerSpecification(string? customerId = null, string? storeName = null, string? productName = null) : base(c =>
@@ -20,5 +22,7 @@ public class CustomerSpecification : BaseSpecification<Customer>
     {
         AddInclude("DeliveryAddress");
         AddInclude("BillingAddress");
+
+        AddOrderByAscending(c => c.StoreName);
     }
 }

@@ -9,6 +9,8 @@ public class IngredientSpecification : BaseSpecification<Ingredient>
         (string.IsNullOrWhiteSpace(args.ItemNumber) || (c.ItemNumber == args.ItemNumber)))
     {
         AddInclude("IngredientSuppliers.Supplier");
+
+        AddOrderByAscending(c => c.ItemNumber);
     }
 
     public IngredientSpecification(string? ingredientId = null, string? itemNumber = null) : base(c =>
@@ -16,5 +18,7 @@ public class IngredientSpecification : BaseSpecification<Ingredient>
         (string.IsNullOrWhiteSpace(itemNumber) || c.ItemNumber.ToLower().Trim() == itemNumber.ToLower().Trim()))
     {
         AddInclude("IngredientSuppliers.Supplier");
+
+        AddOrderByAscending(c => c.ItemNumber);
     }
 }

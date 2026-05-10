@@ -11,6 +11,8 @@ public class OrderSpecification : BaseSpecification<Order>
         (!args.OrderDate.HasValue || c.OrderDate.Date == args.OrderDate.Value.Date))
     {
         AddInclude("OrderItems");
+
+        AddOrderByAscending(c => c.OrderNumber);
     }
 
     public OrderSpecification(string? orderId = null, int? orderNumber = null, string? productName = null, bool latestOnly = false) : base(c =>
@@ -25,6 +27,10 @@ public class OrderSpecification : BaseSpecification<Order>
         if (latestOnly)
         {
             AddOrderByDescending(c => c.OrderNumber);
+        }
+        else
+        {
+            AddOrderByAscending(c => c.OrderNumber);
         }
     }
 }

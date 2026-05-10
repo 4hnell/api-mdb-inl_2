@@ -5,6 +5,7 @@ namespace core.Interfaces;
 public interface ISpecification<T>
 {
     Expression<Func<T, bool>>? Predicate { get; }
+    Expression<Func<T, object>>? OrderByAscending { get; }
     Expression<Func<T, object>>? OrderByDescending { get; }
     List<string> Includes { get; }
 
